@@ -2,9 +2,10 @@ extends CharacterBody3D
 
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
 
 @export var mouse_sensitivity: float = 0.001
+@export var jump_height: float = 1.0
+@export var fall_multiplier: float = 2.5
 
 var mouse_motion: Vector2 = Vector2.ZERO
 
@@ -20,10 +21,13 @@ func _physics_process(delta: float) -> void:
 		handle_camera_rotation()
 	
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		if velocity.y >= 0:
+			velocity += get_gravity() * delta
+		else:
+			velocity += get_gravity() * delta * fall_multiplier
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = sqrt(jump_height * 2 * -get_gravity().y)
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
