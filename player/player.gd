@@ -1,13 +1,19 @@
+class_name Player
 extends CharacterBody3D
-
 
 const SPEED = 5.0
 
 @export var mouse_sensitivity: float = 0.001
 @export var jump_height: float = 1.0
 @export var fall_multiplier: float = 2.5
+@export var max_hitpoints: int = 100
 
-var mouse_motion: Vector2 = Vector2.ZERO
+var _mouse_motion: Vector2 = Vector2.ZERO
+var hitpoints: int = max_hitpoints:
+	set(value):
+		hitpoints = value
+		if hitpoints <= 0:
+			get_tree().quit()
 
 @onready var camera_pivot: Node3D = $CameraPivot
 
@@ -43,14 +49,14 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		mouse_motion = -event.relative * mouse_sensitivity
+		_mouse_motion = -event.relative * mouse_sensitivity
 	
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func handle_camera_rotation() -> void:
-	rotate_y(mouse_motion.x)
-	camera_pivot.rotate_x(mouse_motion.y)
+	rotate_y(_mouse_motion.x)
+	camera_pivot.rotate_x(_mouse_motion.y)
 	camera_pivot.rotation_degrees.x = clampf(camera_pivot.rotation_degrees.x, -90.0, 90.0)
-	mouse_motion = Vector2.ZERO
+	_mouse_motion = Vector2.ZERO
