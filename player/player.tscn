@@ -4,10 +4,73 @@
 [ext_resource type="Script" uid="uid://fxsyr4f5it5d" path="res://player/smooth_camera.gd" id="2_rkbax"]
 [ext_resource type="Script" uid="uid://cnmpasqdeiymq" path="res://player/crosshair.gd" id="3_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://0mecb5mbamv1" path="res://weapons/smg.tscn" id="3_yw30f"]
+[ext_resource type="Texture2D" uid="uid://cbspvtpub3ns1" path="res://assets/damage/damage.png" id="5_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://b0rw7ediy33h8" path="res://uis/game_over_menu.tscn" id="6_g6k8r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xgomg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jfg3o"]
+
+[sub_resource type="Animation" id="Animation_qjkh3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g6k8r"]
+resource_name = "take_damage"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_boad6"]
+_data = {
+&"RESET": SubResource("Animation_qjkh3"),
+&"take_damage": SubResource("Animation_g6k8r")
+}
 
 [node name="Player" type="CharacterBody3D" unique_id=1712695545 groups=["Player"]]
 script = ExtResource("1_oul6g")
@@ -26,9 +89,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="SmoothCamera" type="Camera3D" parent="CameraPivot" unique_id=1596995938]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 top_level = true
+cull_mask = 1
 script = ExtResource("2_rkbax")
 
 [node name="SMG" parent="CameraPivot/SmoothCamera" unique_id=2067759232 instance=ExtResource("3_yw30f")]
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera" unique_id=814174008]
+remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=446613062]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=105779980]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="WeaponCamera" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1370034073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+cull_mask = 2
+fov = 40.0
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=790137399]
 anchors_preset = 15
@@ -40,3 +126,19 @@ grow_vertical = 2
 [node name="Crosshair" type="Control" parent="CenterContainer" unique_id=1102562565]
 layout_mode = 2
 script = ExtResource("3_g1dw6")
+
+[node name="DamageTextureRect" type="TextureRect" parent="." unique_id=579341126]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+texture = ExtResource("5_qjkh3")
+
+[node name="DamageAnimationPlayer" type="AnimationPlayer" parent="DamageTextureRect" unique_id=252610839]
+libraries/ = SubResource("AnimationLibrary_boad6")
+
+[node name="GameOverMenu" parent="." unique_id=995280405 instance=ExtResource("6_g6k8r")]
+visible = false

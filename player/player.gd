@@ -11,11 +11,16 @@ const SPEED = 5.0
 var _mouse_motion: Vector2 = Vector2.ZERO
 var hitpoints: int = max_hitpoints:
 	set(value):
+		if value < hitpoints:
+			damage_animation_player.stop()
+			damage_animation_player.play("take_damage")
 		hitpoints = value
 		if hitpoints <= 0:
-			get_tree().quit()
+			game_over_menu.game_over()
 
 @onready var camera_pivot: Node3D = $CameraPivot
+@onready var damage_animation_player: AnimationPlayer = $DamageTextureRect/DamageAnimationPlayer
+@onready var game_over_menu: Control = $GameOverMenu
 
 
 func _ready() -> void:

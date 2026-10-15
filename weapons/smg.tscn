@@ -31,10 +31,38 @@ weapon_mesh = NodePath("SMG")
 muzzle_flash = NodePath("MuzzleFlash")
 
 [node name="SMG" parent="." index="1" unique_id=2024608351 instance=ExtResource("1_n4llf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.35, -0.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.35, -1.8)
+
+[node name="Suppressors_003" parent="SMG" index="0" unique_id=1549484638]
+layers = 2
+
+[node name="Part_024" parent="SMG" index="1" unique_id=1543389910]
+layers = 2
+
+[node name="Rail_009" parent="SMG" index="2" unique_id=1921680397]
+layers = 2
+
+[node name="Grip_017" parent="SMG" index="3" unique_id=442642927]
+layers = 2
+
+[node name="Charger_011" parent="SMG" index="4" unique_id=828181897]
+layers = 2
+
+[node name="Scope_016" parent="SMG" index="5" unique_id=653969750]
+layers = 2
+
+[node name="Part_029" parent="SMG" index="6" unique_id=32676197]
+layers = 2
+
+[node name="Part_030" parent="SMG" index="7" unique_id=1859269028]
+layers = 2
+
+[node name="Gun butt_012" parent="SMG" index="8" unique_id=1571169799]
+layers = 2
 
 [node name="MuzzleFlash" type="GPUParticles3D" parent="." index="3" unique_id=932740621]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.3, -1.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.3, -2.9)
+layers = 2
 material_override = SubResource("StandardMaterial3D_10eae")
 cast_shadow = 0
 emitting = false
@@ -45,3 +73,5 @@ fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_xgomg")
 draw_pass_1 = SubResource("BoxMesh_jfg3o")
+
+[editable path="SMG"]

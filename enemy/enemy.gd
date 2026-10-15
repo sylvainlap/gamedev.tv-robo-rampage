@@ -65,5 +65,4 @@ func _look_at_target(direction: Vector3) -> void:
 	
 
 func _attack() -> void:
-	print("attack")
 	_player.hitpoints -= attack_damage
