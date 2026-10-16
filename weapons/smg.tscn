@@ -29,8 +29,9 @@ size = Vector3(0.1, 0.1, 0.1)
 [node name="SMG" unique_id=2067759232 node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_6vhuu")]
 weapon_mesh = NodePath("SMG")
 muzzle_flash = NodePath("MuzzleFlash")
+automatic = true
 
-[node name="SMG" parent="." index="1" unique_id=2024608351 instance=ExtResource("1_n4llf")]
+[node name="SMG" parent="." index="2" unique_id=2024608351 instance=ExtResource("1_n4llf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.35, -1.8)
 
 [node name="Suppressors_003" parent="SMG" index="0" unique_id=1549484638]

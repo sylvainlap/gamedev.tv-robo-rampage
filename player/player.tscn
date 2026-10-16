@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://bmbswpp1y34gq" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://fxsyr4f5it5d" path="res://player/smooth_camera.gd" id="2_rkbax"]
 [ext_resource type="Script" uid="uid://cnmpasqdeiymq" path="res://player/crosshair.gd" id="3_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://blv6dmt6vo4ih" path="res://weapons/rifle.tscn" id="3_g6k8r"]
+[ext_resource type="Script" uid="uid://d4d25ll4stxy1" path="res://weapons/weapon_handler.gd" id="3_rgyib"]
 [ext_resource type="PackedScene" uid="uid://0mecb5mbamv1" path="res://weapons/smg.tscn" id="3_yw30f"]
-[ext_resource type="Texture2D" uid="uid://cbspvtpub3ns1" path="res://assets/damage/damage.png" id="5_qjkh3"]
+[ext_resource type="Texture2D" uid="uid://cbspvtpub3ns1" path="res://assets/pngs/damage.png" id="5_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://b0rw7ediy33h8" path="res://uis/game_over_menu.tscn" id="6_g6k8r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_xgomg"]
@@ -92,8 +94,6 @@ top_level = true
 cull_mask = 1
 script = ExtResource("2_rkbax")
 
-[node name="SMG" parent="CameraPivot/SmoothCamera" unique_id=2067759232 instance=ExtResource("3_yw30f")]
-
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera" unique_id=814174008]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
 
@@ -115,6 +115,15 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 cull_mask = 2
 fov = 40.0
+
+[node name="WeaponHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera" unique_id=24628754 node_paths=PackedStringArray("smg", "rifle")]
+script = ExtResource("3_rgyib")
+smg = NodePath("SMG")
+rifle = NodePath("Rifle")
+
+[node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" unique_id=383076090 instance=ExtResource("3_yw30f")]
+
+[node name="Rifle" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" unique_id=2067759232 instance=ExtResource("3_g6k8r")]
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=790137399]
 anchors_preset = 15

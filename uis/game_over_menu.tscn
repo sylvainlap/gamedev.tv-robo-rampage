@@ -2,10 +2,16 @@
 
 [ext_resource type="FontFile" uid="uid://dy80lf0uklom7" path="res://assets/ttf/Staatliches-Regular.ttf" id="1_y4b84"]
 [ext_resource type="Script" uid="uid://wc1h8s6dd5gy" path="res://uis/game_over_menu.gd" id="2_uho2s"]
+[ext_resource type="Shader" uid="uid://bvb8xsq6sjfiq" path="res://uis/game_over_menu.tres" id="3_j43bb"]
 
 [sub_resource type="Theme" id="Theme_44n5f"]
 default_font = ExtResource("1_y4b84")
 default_font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uho2s"]
+shader = ExtResource("3_j43bb")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jfg3o"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_y4b84"]
 font_size = 96
@@ -20,6 +26,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_44n5f")
 script = ExtResource("2_uho2s")
+
+[node name="BackgroundBlur" type="TextureRect" parent="." unique_id=204563086]
+material = SubResource("ShaderMaterial_uho2s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_jfg3o")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=971470564]
 layout_mode = 1
