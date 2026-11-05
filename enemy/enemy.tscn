@@ -98,6 +98,30 @@ _data = {
 &"idle": SubResource("Animation_ppra6")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ofsxj"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ppra6"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p200p"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pmsee"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1wwld"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_jfg3o"]
+states/End/position = Vector2(779, 87)
+states/attack/node = SubResource("AnimationNodeAnimation_ofsxj")
+states/attack/position = Vector2(487, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_ppra6")
+states/idle/position = Vector2(323, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_p200p"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_pmsee"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_1wwld")]
+graph_offset = Vector2(8, 2)
+
 [node name="Enemy" type="CharacterBody3D" unique_id=529281462]
 script = ExtResource("1_2mvqj")
 
@@ -114,3 +138,7 @@ debug_enabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1645526028]
 libraries/ = SubResource("AnimationLibrary_ppra6")
 autoplay = &"idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1256189086]
+tree_root = SubResource("AnimationNodeStateMachine_jfg3o")
+anim_player = NodePath("../AnimationPlayer")

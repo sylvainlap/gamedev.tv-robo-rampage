@@ -9,7 +9,8 @@ const SPEED = 5.0
 @export var attack_damage: int = 20
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 
 var _player: CharacterBody3D
 var _provoked: bool = false
@@ -44,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		var direction = global_position.direction_to(next_position)
 		
 		if _distance <= attack_range:
-			animation_player.play("attack")
+			playback.travel("attack")
 
 		if direction:
 			_look_at_target(direction)
