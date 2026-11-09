@@ -136,10 +136,11 @@ ammo_type = 1
 [node name="Rifle" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" unique_id=2067759232 node_paths=PackedStringArray("ammo_handler") instance=ExtResource("3_g6k8r")]
 ammo_handler = NodePath("../../AmmoHandler")
 
-[node name="AmmoHandler" type="Node" parent="SubViewportContainer/SubViewport/WeaponCamera" unique_id=1943774151 node_paths=PackedStringArray("ammo_label")]
+[node name="AmmoHandler" type="Node" parent="SubViewportContainer/SubViewport/WeaponCamera" unique_id=1943774151 node_paths=PackedStringArray("ammo_label", "weapon_handler")]
 unique_name_in_owner = true
 script = ExtResource("6_hg6s5")
 ammo_label = NodePath("../../../../MarginContainer/AmmoLabel")
+weapon_handler = NodePath("../WeaponHandler")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=790137399]
 anchors_preset = 15

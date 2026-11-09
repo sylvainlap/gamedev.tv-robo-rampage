@@ -19,12 +19,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		_previous_weapon()
 
 
+func get_weapon_ammo() -> AmmoHandler.ammo_type:
+	return get_child(_get_current_index()).ammo_type
+
+
 func _equip(active_weapon: Node3D) -> void:
 	for weapon in get_children():
 		if weapon == active_weapon:
 			weapon.visible = true
 			weapon.set_process(true)
-			weapon.ammo_handler.update_ammo_label(weapon.ammo_type)
+			weapon.ammo_handler.update_ammo_label()
 		else:
 			weapon.visible = false
 			weapon.set_process(false)
